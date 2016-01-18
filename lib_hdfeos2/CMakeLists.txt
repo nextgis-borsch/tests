@@ -79,7 +79,7 @@ FOREACH (out_file ${POINT_REFERENCE_FILES})
 ENDFOREACH (out_file ${POINT_REFERENCE_FILES})
 
 ADD_TEST (
-    NAME swath_demo-clearall-objects
+    NAME ${PROJECT_NAME}_swath_demo-clearall-objects
     COMMAND    ${CMAKE_COMMAND} -E remove  SwathFile_created_with_hadeos_sample_file_writer_of_HDFEOS2_version_219_or_higher_release.hdf
 )
 SET (sd_last_test "swath_demo-clearall-objects")
@@ -94,16 +94,16 @@ SET (swath_demo
     SubsetSwath
 )
 FOREACH (sample ${swath_demo})
-    ADD_TEST (NAME swath_demo_${sample} COMMAND $<TARGET_FILE:${sample}>)
+    ADD_TEST (NAME ${PROJECT_NAME}_swath_demo_${sample} COMMAND $<TARGET_FILE:${sample}>)
     IF (NOT "${sd_last_test}" STREQUAL "")
-        SET_TESTS_PROPERTIES (swath_demo_${sample} PROPERTIES DEPENDS ${sd_last_test})
+        SET_TESTS_PROPERTIES (${PROJECT_NAME}_swath_demo_${sample} PROPERTIES DEPENDS ${sd_last_test})
     ENDIF (NOT "${sd_last_test}" STREQUAL "")
     SET (sd_last_test "swath_demo_${sample}")
 ENDFOREACH (sample ${swath_demo})
 
 # Remove any output file left over from previous test run
 ADD_TEST (
-    NAME grid_demo-clearall-objects
+    NAME ${PROJECT_NAME}_grid_demo-clearall-objects
     COMMAND    ${CMAKE_COMMAND} -E remove GridFile_created_with_hadeos_sample_file_writer_of_HDFEOS2_version_219_or_higher_release.hdf
 )
 SET (gd_last_test "grid_demo-clearall-objects")
@@ -117,16 +117,16 @@ SET (grid_demo
     SubsetGrid
 )
 FOREACH (sample ${grid_demo})
-    ADD_TEST (NAME grid_demo_${sample} COMMAND $<TARGET_FILE:${sample}>)
+    ADD_TEST (NAME ${PROJECT_NAME}_grid_demo_${sample} COMMAND $<TARGET_FILE:${sample}>)
     IF (NOT "${gd_last_test}" STREQUAL "")
-        SET_TESTS_PROPERTIES (grid_demo_${sample} PROPERTIES DEPENDS ${gd_last_test})
+        SET_TESTS_PROPERTIES (${PROJECT_NAME}_grid_demo_${sample} PROPERTIES DEPENDS ${gd_last_test})
     ENDIF (NOT "${gd_last_test}" STREQUAL "")
     SET (gd_last_test "grid_demo_${sample}")
 ENDFOREACH (sample ${grid_demo})
 
 # Remove any output file left over from previous test run
 ADD_TEST (
-    NAME point_demo-clearall-objects
+    NAME ${PROJECT_NAME}_point_demo-clearall-objects
     COMMAND    ${CMAKE_COMMAND} -E remove  PointFile_created_with_hadeos_sample_file_writer_of_HDFEOS2_version_219_or_higher_release.hdf
 )
 SET (pd_last_test "point_demo-clearall-objects")
@@ -139,9 +139,9 @@ SET (point_demo
 )
 
 FOREACH (sample ${point_demo})
-    ADD_TEST (NAME point_demo_${sample} COMMAND $<TARGET_FILE:${sample}>)
+    ADD_TEST (NAME ${PROJECT_NAME}_point_demo_${sample} COMMAND $<TARGET_FILE:${sample}>)
     IF (NOT "${pd_last_test}" STREQUAL "")
-        SET_TESTS_PROPERTIES (point_demo_${sample} PROPERTIES DEPENDS ${pd_last_test})
+        SET_TESTS_PROPERTIES (${PROJECT_NAME}_point_demo_${sample} PROPERTIES DEPENDS ${pd_last_test})
     ENDIF (NOT "${pd_last_test}" STREQUAL "")
     SET (pd_last_test "point_demo_${sample}")
 ENDFOREACH (sample ${point_demo})

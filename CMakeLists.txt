@@ -21,6 +21,11 @@ set (DART_TESTING_TIMEOUT 1200 CACHE INTEGER
 enable_testing ()
 include (CTest)
 
+option (BUILD_ZLIB_TESTING "Build ZLIB Unit Testing" ON)
+if(BUILD_ZLIB_TESTING)
+    add_subdirectory (${CMAKE_SOURCE_DIR}/lib_z)
+endif()
+
 option (BUILD_SZIP_TESTING "Build SZIP Unit Testing" ON)
 if(BUILD_SZIP_TESTING)
     add_subdirectory (${CMAKE_SOURCE_DIR}/lib_szip)
