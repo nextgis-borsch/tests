@@ -14,7 +14,7 @@ set(WITH_SZIP ON CACHE BOOL "set with jpeg on" FORCE)
 set(WITH_SZIP_EXTERNAL ON CACHE BOOL "set with jpeg external on" FORCE)
 
 
-include(find_anyproject)
+include(FindAnyProject)
 find_anyproject(HDFEOS2 REQUIRED)
 find_anyproject(HDF4 REQUIRED)
 find_anyproject(ZLIB REQUIRED)

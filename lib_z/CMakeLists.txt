@@ -25,7 +25,7 @@ endif()
 set(CMAKE_REQUIRED_DEFINITIONS) # clear variable
 
 
-include(find_anyproject)
+include(FindAnyProject)
 find_anyproject(ZLIB REQUIRED)
 
 add_executable(example example.c)

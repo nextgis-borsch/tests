@@ -4,7 +4,7 @@ project (szip_test)
 set(WITH_SZIP ON CACHE BOOL "set with szip on" FORCE)
 set(WITH_SZIP_EXTERNAL ON CACHE BOOL "set with szip external on" FORCE)
 
-include(find_anyproject)
+include(FindAnyProject)
 find_anyproject(SZIP REQUIRED)
 
 
