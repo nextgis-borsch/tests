@@ -35,3 +35,8 @@ option (BUILD_HDFEOS2_TESTING "Build HDF-EOS2 Unit Testing" ON)
 if(BUILD_HDFEOS2_TESTING)
     add_subdirectory (${CMAKE_SOURCE_DIR}/lib_hdfeos2)
 endif()
+
+option (BUILD_PNG_TESTING "Build PNG Unit Testing" ON)
+if(BUILD_PNG_TESTING)
+    add_subdirectory (${CMAKE_SOURCE_DIR}/lib_png)
+endif()
