@@ -105,14 +105,15 @@ function(find_extproject name)
         set(PULL_TIMEOUT 100)
     endif()
 
-    if(NOT DEFINED SUPRESS_WITH_MESSAGES)
-        set(SUPRESS_WITH_MESSAGES TRUE)
+    if(NOT DEFINED SUPRESS_VERBOSE_OUTPUT)
+        set(SUPRESS_VERBOSE_OUTPUT TRUE)
     endif()
 
     list(APPEND find_extproject_CMAKE_ARGS -DEP_BASE=${EP_BASE})   
     list(APPEND find_extproject_CMAKE_ARGS -DEP_URL=${EP_URL})       
     list(APPEND find_extproject_CMAKE_ARGS -DPULL_UPDATE_PERIOD=${PULL_UPDATE_PERIOD})       
     list(APPEND find_extproject_CMAKE_ARGS -DPULL_TIMEOUT=${PULL_TIMEOUT})       
+    list(APPEND find_extproject_CMAKE_ARGS -DSUPRESS_VERBOSE_OUTPUT=${SUPRESS_VERBOSE_OUTPUT})       
         
     include(ExternalProject)
     set_property(DIRECTORY PROPERTY "EP_BASE" ${EP_BASE})
@@ -154,7 +155,7 @@ function(find_extproject name)
     get_cmake_property(_variableNames VARIABLES)
     string (REGEX MATCHALL "(^|;)WITH_[A-Za-z0-9_]*" _matchedVars "${_variableNames}") 
     foreach(_variableName ${_matchedVars})
-        if(NOT SUPRESS_WITH_MESSAGES)
+        if(NOT SUPRESS_VERBOSE_OUTPUT)
             message(STATUS "${_variableName}=${${_variableName}}")
         endif()    
         list(APPEND find_extproject_CMAKE_ARGS -D${_variableName}=${${_variableName}})
@@ -164,12 +165,10 @@ function(find_extproject name)
     # get some properties from <cmakemodules>/findext${name}.cmake file
     include(FindExt${name})
   
-    if(NOT TARGET ${name}_EP)
     ExternalProject_Add(${name}_EP
         GIT_REPOSITORY ${EP_URL}/${repo_name}
         CMAKE_ARGS ${find_extproject_CMAKE_ARGS}
     )
-    endif()
         
     find_package(Git)
     if(NOT GIT_FOUND)

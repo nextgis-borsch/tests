@@ -55,12 +55,12 @@ SET (samples
     WriteLevels
 )
 
-FOREACH (sample ${samples})
-  ADD_EXECUTABLE (${sample} ${CMAKE_CURRENT_SOURCE_DIR}/${sample}.c)
+foreach (sample ${samples})
+  add_executable (${sample} ${CMAKE_CURRENT_SOURCE_DIR}/${sample}.c)
   target_link_extlibraries (${sample})
-ENDFOREACH (sample ${samples})
+endforeach ()
 
-SET (POINT_REFERENCE_FILES
+set (POINT_REFERENCE_FILES
   fixedBuoy0.txt
   fixedBuoy1.txt
   fixedBuoy1s.txt
@@ -68,15 +68,15 @@ SET (POINT_REFERENCE_FILES
   floatBuoy1.txt
   simple.txt
 )
-FOREACH (out_file ${POINT_REFERENCE_FILES})
-  SET (outdest "${CMAKE_CURRENT_BINARY_DIR}/${out_file}")
-  ADD_CUSTOM_COMMAND (
+foreach (out_file ${POINT_REFERENCE_FILES})
+  set (outdest "${CMAKE_CURRENT_BINARY_DIR}/${out_file}")
+  add_custom_command (
       TARGET     SetupPoint
       POST_BUILD
       COMMAND    ${XLATE_UTILITY}
       ARGS       ${CMAKE_CURRENT_SOURCE_DIR}/${out_file} ${outdest}
   )
-ENDFOREACH (out_file ${POINT_REFERENCE_FILES})
+endforeach ()
 
 ADD_TEST (
     NAME ${PROJECT_NAME}_swath_demo-clearall-objects
