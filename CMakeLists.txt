@@ -15,6 +15,10 @@ else()
     set(LIB_TYPE STATIC)
 endif()
 
+if(CMAKE_GENERATOR_TOOLSET MATCHES "*xp")
+    add_definitions(-D_WIN32_WINNT=0x0501)
+endif()
+
 set (DART_TESTING_TIMEOUT 1200 CACHE INTEGER
        "Timeout in seconds for each test (default 1200=20minutes)")
 
