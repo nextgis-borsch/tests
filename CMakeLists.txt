@@ -15,7 +15,7 @@ else()
     set(LIB_TYPE STATIC)
 endif()
 
-if(CMAKE_GENERATOR_TOOLSET MATCHES "*xp")
+if(CMAKE_GENERATOR_TOOLSET MATCHES "v([0-9]+)_xp")
     add_definitions(-D_WIN32_WINNT=0x0501)
 endif()
 
@@ -24,23 +24,12 @@ set (DART_TESTING_TIMEOUT 1200 CACHE INTEGER
 
 enable_testing ()
 include (CTest)
+include (FindAnyProject)
 
-option (BUILD_ZLIB_TESTING "Build ZLIB Unit Testing" ON)
-if(BUILD_ZLIB_TESTING)
-    add_subdirectory (${CMAKE_SOURCE_DIR}/lib_z)
-endif()
+file(GLOB TESTS ${CMAKE_CURRENT_SOURCE_DIR}/lib_*)
+foreach(TEST ${TESTS})
+    if(EXISTS ${TEST}/CMakeLists.txt) 
+        add_subdirectory(${TEST})
+    endif()
+endforeach()
 
-option (BUILD_SZIP_TESTING "Build SZIP Unit Testing" ON)
-if(BUILD_SZIP_TESTING)
-    add_subdirectory (${CMAKE_SOURCE_DIR}/lib_szip)
-endif()
-
-option (BUILD_HDFEOS2_TESTING "Build HDF-EOS2 Unit Testing" ON)
-if(BUILD_HDFEOS2_TESTING)
-    add_subdirectory (${CMAKE_SOURCE_DIR}/lib_hdfeos2)
-endif()
-
-option (BUILD_PNG_TESTING "Build PNG Unit Testing" ON)
-if(BUILD_PNG_TESTING)
-    add_subdirectory (${CMAKE_SOURCE_DIR}/lib_png)
-endif()
