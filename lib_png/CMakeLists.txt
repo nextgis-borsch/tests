@@ -7,6 +7,22 @@ if(BUILD_HDFEOS2_TESTING)
     set(WITH_PNG_EXTERNAL ON CACHE BOOL "set with png external on" FORCE)
 
     find_anyproject(PNG REQUIRED)
+    find_anyproject(ZLIB REQUIRED)
+    
+    if(NOT WIN32)
+        find_library(M_LIBRARY
+            NAMES m
+            PATHS /usr/lib /usr/local/lib
+        )
+        if(NOT M_LIBRARY)
+          message(STATUS "math lib 'libm' not found; floating point support disabled")
+        endif()
+    else()
+      # not needed on windows
+      set(M_LIBRARY "")
+    endif()
+        
+    set(TARGET_LINK_LIB ${TARGET_LINK_LIB} ${M_LIBRARY})
 
 
     #-----------------------------------------------------------------------------

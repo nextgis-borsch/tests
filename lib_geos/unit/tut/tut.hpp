@@ -13,6 +13,7 @@
 
 #if defined(linux)
 #define TUT_USE_POSIX
+#include <unistd.h>
 #endif
 
 #include "tut_exception.hpp"

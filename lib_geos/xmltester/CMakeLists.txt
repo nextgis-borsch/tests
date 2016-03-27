@@ -11,17 +11,13 @@
 #
 #################################################################################
 
-set(STATUS_MESSAGE "Enable GEOS XML Tester build")
-set(STATUS_RESULT "OFF")
 
-if(GEOS_ENABLE_TESTS)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/tinyxml)
 
-  include_directories(${CMAKE_CURRENT_SOURCE_DIR})
-  include_directories(${CMAKE_CURRENT_SOURCE_DIR}/tinyxml)
+set(simplewkttester_SOURCES SimpleWKTTester.cpp)
 
-  set(simplewkttester_SOURCES SimpleWKTTester.cpp)
-
-  set(xmltester_SOURCES
+set(xmltester_SOURCES
     XMLTester.cpp
     tinyxml/tinyxml.cpp
     tinyxml/tinystr.cpp
@@ -30,22 +26,22 @@ if(GEOS_ENABLE_TESTS)
     BufferResultMatcher.cpp
     SingleSidedBufferResultMatcher.cpp)
 
-  add_executable(simplewkttester ${simplewkttester_SOURCES})
-  if(APPLE AND GEOS_ENABLE_MACOSX_FRAMEWORK)
+add_executable(simplewkttester ${simplewkttester_SOURCES})
+if(APPLE AND GEOS_ENABLE_MACOSX_FRAMEWORK)
     target_link_libraries(simplewkttester GEOS)
- 	else()
-    target_link_libraries(simplewkttester geos)
- 	endif()
+else()
+    target_link_extlibraries(simplewkttester)
+endif()
 
-  add_executable(xmltester ${xmltester_SOURCES})
-  if(APPLE AND GEOS_ENABLE_MACOSX_FRAMEWORK)
+add_executable(xmltester ${xmltester_SOURCES})
+if(APPLE AND GEOS_ENABLE_MACOSX_FRAMEWORK)
     target_link_libraries(xmltester GEOS)
- 	else()
-    target_link_libraries(xmltester geos)
-  endif()
+else()
+    target_link_extlibraries(xmltester)
+endif()
 
-  set(XMLTESTS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/tests)
-  set(SAVE_XMLTESTS
+set(XMLTESTS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/tests)
+set(SAVE_XMLTESTS
     ${XMLTESTS_DIR}/testLeaksBig.xml
     ${XMLTESTS_DIR}/split.xml
     ${XMLTESTS_DIR}/hexwkb.xml
@@ -105,9 +101,6 @@ if(GEOS_ENABLE_TESTS)
     ${XMLTESTS_DIR}/safe/16595.xml
     ${XMLTESTS_DIR}/safe/16596.xml)
 
-  add_test(xmltester ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/xmltester ${SAVE_XMLTESTS})
+add_test(geos_xmltester ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/xmltester ${SAVE_XMLTESTS})
 
-  set(STATUS_RESULT "ON")
-endif()
 
-message(STATUS "${STATUS_MESSAGE} - ${STATUS_RESULT}")

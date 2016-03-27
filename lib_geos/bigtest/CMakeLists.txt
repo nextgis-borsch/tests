@@ -11,36 +11,29 @@
 #
 #################################################################################
 
-set(STATUS_MESSAGE "Enable GEOS large geometry tests build")
-set(STATUS_RESULT "OFF")
 
-if(GEOS_ENABLE_TESTS)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/io/markup)
 
-  include_directories(${CMAKE_CURRENT_SOURCE_DIR})
-  include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/io/markup)
+add_executable(bug234 bug234.cpp)
 
-  add_executable(bug234 bug234.cpp)
-
-  if(APPLE AND GEOS_ENABLE_MACOSX_FRAMEWORK) 
+if(APPLE AND GEOS_ENABLE_MACOSX_FRAMEWORK) 
     target_link_libraries(bug234 GEOS) 
-  else() 
-    target_link_libraries(bug234 geos) 
-  endif() 
+else() 
+    target_link_extlibraries(bug234) 
+endif() 
 
-  add_executable(TestSweepLineSpeed
-	TestSweepLineSpeed.cpp
-	GeometryTestFactory.cpp
-	bigtest.h)
-  if(APPLE AND GEOS_ENABLE_MACOSX_FRAMEWORK)
-    target_link_libraries(TestSweepLineSpeed GEOS)
-  else()
-    target_link_libraries(TestSweepLineSpeed geos)
-  endif()
-
-  add_test(bug234 ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/bug234)
-  add_test(TestSweepLineSpeed ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/TestSweepLineSpeed)
-
-  set(STATUS_RESULT "ON")
+add_executable(TestSweepLineSpeed
+    TestSweepLineSpeed.cpp
+    GeometryTestFactory.cpp
+    bigtest.h)
+if(APPLE AND GEOS_ENABLE_MACOSX_FRAMEWORK)
+target_link_libraries(TestSweepLineSpeed GEOS)
+else()
+    target_link_extlibraries(TestSweepLineSpeed)
 endif()
 
-message(STATUS "${STATUS_MESSAGE} - ${STATUS_RESULT}")
+add_test(geos_bug234 ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/bug234)
+add_test(geos_TestSweepLineSpeed ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/TestSweepLineSpeed)
+
+

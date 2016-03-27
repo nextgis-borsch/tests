@@ -7,7 +7,6 @@ if(BUILD_EXPAT_TESTING)
     set(WITH_EXPAT ON CACHE BOOL "set with expat on" FORCE)
     set(WITH_EXPAT_EXTERNAL ON CACHE BOOL "set with expat external on" FORCE)
 
-    include(FindAnyProject)
     find_anyproject(EXPAT REQUIRED)
 
     add_executable(runtests runtests.c chardata.c minicheck.c)
