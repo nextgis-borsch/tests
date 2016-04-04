@@ -8,3 +8,6 @@ Now implemented for:
 * lib_z
 * lib_szip
 * lib_hdfeos2
+* lib_expat
+* lib_png
+* lib_geos
