@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 ###############################################################################
-# $Id$
+# $Id: kro.py 32163 2015-12-13 17:44:50Z goatbar $
 #
 # Project:  GDAL/OGR Test Suite
 # Purpose:  Even Rouault, <even dot rouault at mines-paris dot org>
@@ -9,7 +9,7 @@
 #
 ###############################################################################
 # Copyright (c) 2014, Even Rouault <even dot rouault at mines-paris dot org>
-# 
+#
 # Permission is hereby granted, free of charge, to any person obtaining a
 # copy of this software and associated documentation files (the "Software"),
 # to deal in the Software without restriction, including without limitation
@@ -19,7 +19,7 @@
 #
 # The above copyright notice and this permission notice shall be included
 # in all copies or substantial portions of the Software.
-# 
+#
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
 # OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -90,7 +90,7 @@ def kro_5():
     ds = None
 
     gdal.Unlink('tmp/kro_5.kro')
-    
+
     return 'success'
 
 gdaltest_list = [
@@ -100,7 +100,6 @@ gdaltest_list = [
     kro_4,
     kro_5,
     ]
-  
 
 
 if __name__ == '__main__':

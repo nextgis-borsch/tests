@@ -1,6 +1,6 @@
-    #!/usr/bin/env python
+#!/usr/bin/env python
 ###############################################################################
-# $Id$
+# $Id: ogr_rfc35_mem.py 29729 2015-08-22 03:19:10Z goatbar $
 #
 # Project:  GDAL/OGR Test Suite
 # Purpose:  Test RFC35 for Memory driver
@@ -446,4 +446,3 @@ if __name__ == '__main__':
     gdaltest.run_tests( gdaltest_list )
 
     gdaltest.summarize()
-

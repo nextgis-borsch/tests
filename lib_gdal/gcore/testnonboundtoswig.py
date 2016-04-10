@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 ###############################################################################
-# $Id$
+# $Id: testnonboundtoswig.py 28394 2015-01-31 09:23:41Z rouault $
 #
 # Project:  GDAL/OGR Test Suite
 # Purpose:  Test GDAL functions not bound SWIG with ctypes

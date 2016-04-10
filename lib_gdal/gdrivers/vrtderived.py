@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 ###############################################################################
-# $Id$
+# $Id: vrtderived.py 31354 2015-11-06 13:51:10Z goatbar $
 #
 # Project:  GDAL/OGR Test Suite
 # Purpose:  Test AddBand() with VRTDerivedRasterBand.
@@ -67,8 +67,14 @@ def vrtderived_1():
     vrt_ds.GetRasterBand(1).SetMetadata(md, 'vrt_sources')
     md_read = vrt_ds.GetRasterBand(1).GetMetadata('vrt_sources')
     vrt_ds = None
-    
-    expected_md_read = '<SimpleSource>\n  <SourceFilename relativeToVRT="0">data/byte.tif</SourceFilename>\n  <SourceBand>1</SourceBand>\n  <SourceProperties RasterXSize="20" RasterYSize="20" DataType="Byte" BlockXSize="20" BlockYSize="20" />\n</SimpleSource>\n'
+
+    expected_md_read = (
+        '<SimpleSource>\n'
+        '  <SourceFilename relativeToVRT="0">data/byte.tif</SourceFilename>\n'
+        '  <SourceBand>1</SourceBand>\n'
+        '  <SourceProperties RasterXSize="20" RasterYSize="20" DataType="Byte" '
+        'BlockXSize="20" BlockYSize="20" />\n'
+        '</SimpleSource>\n')
     if md_read['source_0'] != expected_md_read:
         gdaltest.post_reason('fail')
         print(md_read['source_0'])

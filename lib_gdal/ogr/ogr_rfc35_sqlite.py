@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 ###############################################################################
-# $Id$
+# $Id: ogr_rfc35_sqlite.py 29695 2015-08-20 17:32:56Z goatbar $
 #
 # Project:  GDAL/OGR Test Suite
 # Purpose:  Test RFC35 for SQLite driver

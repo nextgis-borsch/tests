@@ -1,0 +1,11 @@
+<PAMDataset>
+  <Metadata domain="IMAGERY">
+    <MDI key="AcquisitionDateTime">2014-12-31  23:00:00</MDI>
+    <MDI key="CloudCover">16</MDI>
+    <MDI key="SatelliteId">IKONOS-2</MDI>
+  </Metadata>
+  <Metadata>
+    <MDI key="METADATA_TYPE">GE</MDI>
+  </Metadata>
+  <Metadata domain="EXIF" />
+</PAMDataset>

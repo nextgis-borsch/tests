@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 ###############################################################################
-# $Id$
+# $Id: pamproxydb.py 29856 2015-08-28 01:43:45Z goatbar $
 #
 # Project:  GDAL/OGR Test Suite
 # Purpose:  Test functioning of the ProxyDB PAM metadata support

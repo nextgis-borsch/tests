@@ -1,16 +1,16 @@
 #!/usr/bin/env python
 ###############################################################################
-# $Id$
+# $Id: cutline.py 33793 2016-03-26 13:02:07Z goatbar $
 #
 # Project:  GDAL/OGR Test Suite
 # Purpose:  Test the image reprojection functions. Try to test as many
 #           resamplers as possible (we have optimized resamplers for some
 #           data types, test them too).
 # Author:   Andrey Kiselev, dron16@ak4719.spb.edu
-# 
+#
 ###############################################################################
 # Copyright (c) 2008, Andrey Kiselev <dron16@ak4719.spb.edu>
-# 
+#
 # Permission is hereby granted, free of charge, to any person obtaining a
 # copy of this software and associated documentation files (the "Software"),
 # to deal in the Software without restriction, including without limitation
@@ -20,7 +20,7 @@
 #
 # The above copyright notice and this permission notice shall be included
 # in all copies or substantial portions of the Software.
-# 
+#
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
 # OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL

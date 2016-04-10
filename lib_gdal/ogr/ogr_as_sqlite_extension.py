@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 ###############################################################################
-# $Id$
+# $Id: ogr_as_sqlite_extension.py 29695 2015-08-20 17:32:56Z goatbar $
 #
 # Project:  GDAL/OGR Test Suite
 # Purpose:  Test GDAL as a SQLite3 dynamically loaded extension

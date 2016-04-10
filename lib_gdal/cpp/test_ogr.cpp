@@ -134,12 +134,14 @@ namespace tut
             ensure("SRS reference count not incremented by assignment operator", 4 == poSRS->GetReferenceCount());
             
             value3 = value;
-            ensure("SRS reference count incremented by assignment operator", 4 == poSRS->GetReferenceCount());
+            ensure( "SRS reference count incremented by assignment operator",
+                    4 == poSRS->GetReferenceCount() );
             
         }
-        ensure("GetReferenceCount expected to be decremented by destructions", 1 == poSRS->GetReferenceCount());
+        ensure( "GetReferenceCount expected to be decremented by destructors",
+                1 == poSRS->GetReferenceCount() );
     }
-    
+
     // Test if copy does not leak or double delete the spatial reference
     template<>
     template<>
@@ -147,7 +149,7 @@ namespace tut
     {
         OGRSpatialReference* poSRS = new OGRSpatialReference();
         ensure(NULL != poSRS);
-        
+
         testSpatialReferenceLeakOnCopy<OGRPoint>(poSRS);
         testSpatialReferenceLeakOnCopy<OGRLineString>(poSRS);
         testSpatialReferenceLeakOnCopy<OGRLinearRing>(poSRS);
@@ -160,10 +162,10 @@ namespace tut
         testSpatialReferenceLeakOnCopy<OGRMultiPoint>(poSRS);
         testSpatialReferenceLeakOnCopy<OGRMultiCurve>(poSRS);
         testSpatialReferenceLeakOnCopy<OGRMultiLineString>(poSRS);
-        
+
         delete poSRS;
     }
-    
+
     template<class T> 
     T* make();
     
@@ -319,7 +321,7 @@ namespace tut
         
         std::ostringstream strErrorCopy; 
         strErrorCopy << poOrigin->getGeometryName() << ": copy constructor changed a value";
-        ensure(strErrorCopy.str().c_str(), poOrigin->Equals(&value2));
+        ensure(strErrorCopy.str().c_str(), CPL_TO_BOOL(poOrigin->Equals(&value2)));
         
         T value3;
         value3 = *poOrigin;
@@ -327,7 +329,7 @@ namespace tut
         
         std::ostringstream strErrorAssign; 
         strErrorAssign << poOrigin->getGeometryName() << ": assignment operator changed a value";
-        ensure(strErrorAssign.str().c_str(), poOrigin->Equals(&value3));
+        ensure(strErrorAssign.str().c_str(), CPL_TO_BOOL(poOrigin->Equals(&value3)));
         
         OGRGeometryFactory::destroyGeometry(poOrigin);
     }
@@ -353,5 +355,93 @@ namespace tut
         
     }
     
+    template<>
+    template<>
+    void object::test<6>()
+    {
+        {
+            OGRPoint p;
+            double x = 1, y = 2;
+            OGR_G_SetPoints( (OGRGeometryH)&p, 1, &x, 0, &y, 0, NULL, 0 );
+            ensure_equals(p.getCoordinateDimension(), 2);
+            ensure_equals(p.getX(), 1);
+            ensure_equals(p.getY(), 2);
+            ensure_equals(p.getZ(), 0);
+        }
+
+        {
+            OGRPoint p;
+            double x = 1, y = 2, z = 3;
+            OGR_G_SetPoints( (OGRGeometryH)&p, 1, &x, 0, &y, 0, &z, 0 );
+            ensure_equals(p.getCoordinateDimension(), 3);
+            ensure_equals(p.getX(), 1);
+            ensure_equals(p.getY(), 2);
+            ensure_equals(p.getZ(), 3);
+        }
+
+        {
+            OGRPoint p;
+            CPLPushErrorHandler(CPLQuietErrorHandler);
+            OGR_G_SetPoints( (OGRGeometryH)&p, 1, NULL, 0, NULL, 0, NULL, 0 );
+            CPLPopErrorHandler();
+        }
+
+        {
+            OGRLineString ls;
+            double x = 1, y = 2;
+            OGR_G_SetPoints( (OGRGeometryH)&ls, 1, &x, 0, &y, 0, NULL, 0 );
+            ensure_equals(ls.getCoordinateDimension(), 2);
+            ensure_equals(ls.getX(0), 1);
+            ensure_equals(ls.getY(0), 2);
+            ensure_equals(ls.getZ(0), 0);
+        }
+
+        {
+            OGRLineString ls;
+            double x = 1, y = 2;
+            OGR_G_SetPoints( (OGRGeometryH)&ls, 1, &x, 0, &y, 0, NULL, 0 );
+            ensure_equals(ls.getCoordinateDimension(), 2);
+            ensure_equals(ls.getX(0), 1);
+            ensure_equals(ls.getY(0), 2);
+            ensure_equals(ls.getZ(0), 0);
+        }
+
+        {
+            OGRLineString ls;
+            double x = 1, y = 2;
+            OGR_G_SetPoints( (OGRGeometryH)&ls, 1, &x, 8, &y, 8, NULL, 0 );
+            ensure_equals(ls.getCoordinateDimension(), 2);
+            ensure_equals(ls.getX(0), 1);
+            ensure_equals(ls.getY(0), 2);
+            ensure_equals(ls.getZ(0), 0);
+        }
+
+        {
+            OGRLineString ls;
+            double x = 1, y = 2, z = 3;
+            OGR_G_SetPoints( (OGRGeometryH)&ls, 1, &x, 0, &y, 0, &z, 0 );
+            ensure_equals(ls.getCoordinateDimension(), 3);
+            ensure_equals(ls.getX(0), 1);
+            ensure_equals(ls.getY(0), 2);
+            ensure_equals(ls.getZ(0), 3);
+        }
+
+        {
+            OGRLineString ls;
+            double x = 1, y = 2, z = 3;
+            OGR_G_SetPoints( (OGRGeometryH)&ls, 1, &x, 8, &y, 8, &z, 8 );
+            ensure_equals(ls.getCoordinateDimension(), 3);
+            ensure_equals(ls.getX(0), 1);
+            ensure_equals(ls.getY(0), 2);
+            ensure_equals(ls.getZ(0), 3);
+        }
+        
+        {
+            OGRLineString ls;
+            CPLPushErrorHandler(CPLQuietErrorHandler);
+            OGR_G_SetPoints( (OGRGeometryH)&ls, 1, NULL, 0, NULL, 0, NULL, 0 );
+            CPLPopErrorHandler();
+        }
+    }
 
 } // namespace tut

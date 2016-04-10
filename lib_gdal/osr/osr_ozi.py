@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 ###############################################################################
-# $Id$
+# $Id: osr_ozi.py 33793 2016-03-26 13:02:07Z goatbar $
 #
 # Project:  GDAL/OGR Test Suite
 # Purpose:  Test OZI projection and datum support
@@ -100,7 +100,7 @@ def osr_ozi_3():
     return 'success'
 
 
-gdaltest_list = [ 
+gdaltest_list = [
     osr_ozi_1,
     osr_ozi_2,
     osr_ozi_3,

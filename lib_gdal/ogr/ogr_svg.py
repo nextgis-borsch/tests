@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 ###############################################################################
-# $Id$
+# $Id: ogr_svg.py 32118 2015-12-11 00:40:44Z goatbar $
 #
 # Project:  GDAL/OGR Test Suite
 # Purpose:  Test SVG driver functionality.
 # Author:   Even Rouault <even dot rouault at mines dash paris dot org>
-# 
+#
 ###############################################################################
 # Copyright (c) 2011, Even Rouault <even dot rouault at mines-paris dot org>
 #
@@ -64,7 +64,7 @@ def ogr_svg_init():
 def ogr_svg_1():
     if not gdaltest.have_svg:
         return 'skip'
-    
+
     if gdaltest.svg_ds is None:
         return 'fail'
 

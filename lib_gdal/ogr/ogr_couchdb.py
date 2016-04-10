@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 ###############################################################################
-# $Id$
+# $Id: ogr_couchdb.py 33793 2016-03-26 13:02:07Z goatbar $
 #
 # Project:  GDAL/OGR Test Suite
 # Purpose:  CouchDB driver testing.
@@ -355,7 +355,7 @@ def ogr_couchdb_changeLayer():
 if gdaltest.skip_on_travis():
     gdaltest_list = []
 else:
-    gdaltest_list = [ 
+    gdaltest_list = [
     ogr_couchdb_init,
     ogr_couchdb_GetFeatureCount,
     ogr_couchdb_GetNextFeature,

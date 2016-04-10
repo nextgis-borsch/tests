@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 ###############################################################################
-# $Id$
+# $Id: ogr_shape_sbn.py 31826 2015-11-29 15:39:57Z goatbar $
 #
 # Project:  GDAL/OGR Test Suite
 # Purpose:  Test ESRI shapefile spatial index mechanism (.sbn files). This can serve
-#           as a test for the functionnality of shapelib's sbnsearch.c
+#           as a test for the functionality of shapelib's sbnsearch.c
 # Author:   Even Rouault <even dot rouault at mines dash paris dot org>
 #
 ###############################################################################

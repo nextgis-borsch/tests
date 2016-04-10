@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 ###############################################################################
-# $Id$
+# $Id: ogr_gft.py 33793 2016-03-26 13:02:07Z goatbar $
 #
 # Project:  GDAL/OGR Test Suite
 # Purpose:  GFT driver testing.
@@ -96,7 +96,7 @@ def ogr_gft_read():
     if count == 0:
         gdaltest.post_reason('did not get expected feature count')
         print(count)
-        if gdaltest.skip_on_travis():
+        if gdaltest.skip_on_travis() or gdal.GetConfigOption('APPVEYOR') is not None:
             ogrtest.gft_drv = None
             return 'skip'
         return 'fail'
@@ -322,7 +322,7 @@ def ogr_gft_ogr2ogr_spatial():
 
     return 'success'
 
-gdaltest_list = [ 
+gdaltest_list = [
     ogr_gft_init,
     ogr_gft_read,
     ogr_gft_write,

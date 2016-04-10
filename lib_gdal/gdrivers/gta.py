@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 ###############################################################################
-# $Id$
+# $Id: gta.py 31955 2015-12-02 06:07:22Z goatbar $
 #
 # Project:  GDAL/OGR Test Suite
 # Purpose:  Test GTA driver
@@ -217,7 +217,9 @@ def gta_4():
     for i in range(17):
         if i != gdal.GCI_PaletteIndex:
             if new_ds.GetRasterBand(i+1).GetColorInterpretation() != i:
-                gdaltest.post_reason('did not get expected color interpreation for band %d' % (i+1))
+                gdaltest.post_reason(
+                    'did not get expected color interpretation '
+                    'for band %d' % (i+1))
                 print(new_ds.GetRasterBand(i+1).GetColorInterpretation())
                 return 'fail'
 

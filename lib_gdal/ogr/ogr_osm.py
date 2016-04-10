@@ -1,15 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 ###############################################################################
-# $Id$
+# $Id: ogr_osm.py 33332 2016-02-02 23:01:31Z rouault $
 #
 # Project:  GDAL/OGR Test Suite
 # Purpose:  Test read functionality for OGR OSM driver.
 # Author:   Even Rouault <even dot rouault at mines dash paris dot org>
-# 
+#
 ###############################################################################
 # Copyright (c) 2012-2014, Even Rouault <even dot rouault at mines-paris dot org>
-# 
+#
 # Permission is hereby granted, free of charge, to any person obtaining a
 # copy of this software and associated documentation files (the "Software"),
 # to deal in the Software without restriction, including without limitation
@@ -19,7 +19,7 @@
 #
 # The above copyright notice and this permission notice shall be included
 # in all copies or substantial portions of the Software.
-# 
+#
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
 # OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -298,11 +298,9 @@ def ogr_osm_3(options = None):
     if test_cli_utilities.get_ogr2ogr_path() is None:
         return 'skip'
 
-    try:
-        os.stat('tmp/ogr_osm_3')
-        ogr.GetDriverByName('ESRI Shapefile').DeleteDataSource('tmp/ogr_osm_3')
-    except:
-        pass
+    filepath = 'tmp/ogr_osm_3'
+    if os.path.exists(filepath):
+        ogr.GetDriverByName('ESRI Shapefile').DeleteDataSource(filepath)
 
     if options is not None:
         options = ' ' + options
@@ -310,9 +308,9 @@ def ogr_osm_3(options = None):
         options = ''
     gdaltest.runexternal(test_cli_utilities.get_ogr2ogr_path() + ' tmp/ogr_osm_3 data/test.pbf points lines multipolygons multilinestrings -progress' + options)
 
-    ret = ogr_osm_1('tmp/ogr_osm_3')
+    ret = ogr_osm_1(filepath)
 
-    ogr.GetDriverByName('ESRI Shapefile').DeleteDataSource('tmp/ogr_osm_3')
+    ogr.GetDriverByName('ESRI Shapefile').DeleteDataSource(filepath)
 
     return ret
 
@@ -358,21 +356,20 @@ def ogr_osm_4():
     lyr.SetSpatialFilterRect(0,0,0,0)
     lyr.ResetReading()
     feat = lyr.GetNextFeature()
-    is_none = feat is None
-
-    if not is_none:
-        gdaltest.post_reason('fail')
+    if feat is not None:
+        gdaltest.post_reason('Zero filter ')
         return 'fail'
 
-    lyr.SetSpatialFilter(None)
+    with gdaltest.error_handler():
+      lyr.SetSpatialFilter(None)
 
-    # Change layer
-    sql_lyr = ds.ExecuteSQL('SELECT * FROM lines')
+      # Change layer
+      sql_lyr = ds.ExecuteSQL('SELECT * FROM lines')
 
-    feat = sql_lyr.GetNextFeature()
-    is_none = feat is None
+      feat = sql_lyr.GetNextFeature()
+      is_none = feat is None
 
-    ds.ReleaseResultSet(sql_lyr)
+      ds.ReleaseResultSet(sql_lyr)
 
     if is_none:
         gdaltest.post_reason('fail')
@@ -544,7 +541,7 @@ def ogr_osm_9():
     gdal.SetConfigOption('OSM_USE_CUSTOM_INDEXING', 'NO')
     ret = ogr_osm_8()
     gdal.SetConfigOption('OSM_USE_CUSTOM_INDEXING', old_val)
-    
+
     return ret
 
 ###############################################################################
@@ -555,8 +552,8 @@ def ogr_osm_10():
     if ogrtest.osm_drv is None:
         return 'skip'
 
-    # Non existing file
-    ds = ogr.Open('/nonexisting/foo.osm')
+    # A file that does not exist.
+    ds = ogr.Open('/nonexistent/foo.osm')
     if ds is not None:
         gdaltest.post_reason('fail')
         return 'fail'
@@ -686,6 +683,45 @@ def ogr_osm_12():
 
     return 'success'
 
+###############################################################################
+# Test test_uncompressed_dense_true_nometadata.pbf
+
+def ogr_osm_test_uncompressed_dense_true_nometadata_pbf():
+    return ogr_osm_1('data/test_uncompressed_dense_true_nometadata.pbf')
+
+###############################################################################
+# Test test_uncompressed_dense_false.pbf
+
+def ogr_osm_test_uncompressed_dense_false_pbf():
+    return ogr_osm_1('data/test_uncompressed_dense_false.pbf')
+
+# Special case: if an object has a 'osm_id' key, then do not use it to override
+# "our" osm_id field. But put it in other_fields (#6347)
+def ogr_osm_13():
+
+    if ogrtest.osm_drv is None:
+        return 'skip'
+
+    gdal.FileFromMemBuffer('/vsimem/ogr_osm_13.osm',
+"""<osm><node id="123" lon="2" lat="49"><tag k="osm_id" v="0"/></node></osm>""")
+
+    with gdaltest.error_handler():
+        ds = ogr.Open('/vsimem/ogr_osm_13.osm')
+    if ds is None:
+        gdal.Unlink('/vsimem/ogr_osm_13.osm')
+        return 'skip'
+    lyr = ds.GetLayer(0)
+    f = lyr.GetNextFeature()
+    if f['osm_id'] != '123' or f['other_tags'] != '"osm_id"=>"0"':
+        gdaltest.post_reason('fail')
+        f.DumpReadable()
+        return 'fail'
+    ds = None
+
+    gdal.Unlink('/vsimem/ogr_osm_13.osm')
+
+    return 'success'
+
 gdaltest_list = [
     ogr_osm_1,
     ogr_osm_2,
@@ -701,6 +737,9 @@ gdaltest_list = [
     ogr_osm_10,
     ogr_osm_11,
     ogr_osm_12,
+    ogr_osm_test_uncompressed_dense_true_nometadata_pbf,
+    ogr_osm_test_uncompressed_dense_false_pbf,
+    ogr_osm_13,
     ]
 
 if __name__ == '__main__':

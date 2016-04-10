@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 ###############################################################################
-# $Id$
+# $Id: ogr_virtualogr.py 32118 2015-12-11 00:40:44Z goatbar $
 #
 # Project:  GDAL/OGR Test Suite
 # Purpose:  VirtualOGR testing
@@ -61,14 +61,14 @@ def ogr_virtualogr_run_sql(sql_statement):
     success = gdal.GetLastErrorMsg() == ''
     ds.ReleaseResultSet(sql_lyr)
     ds = None
-    
+
     return success
 
 ###############################################################################
 # Basic tests
 
 def ogr_virtualogr_1():
-    
+
     import ogr_sql_sqlite
     if not ogr_sql_sqlite.ogr_sql_sqlite_available():
         return 'skip'
@@ -78,7 +78,7 @@ def ogr_virtualogr_1():
         gdaltest.post_reason('failed')
         return 'fail'
 
-    # Unexisting dataset
+    # Nonexistent dataset
     if ogr_virtualogr_run_sql("CREATE VIRTUAL TABLE poly USING VirtualOGR('foo')"):
         gdaltest.post_reason('failed')
         return 'fail'
@@ -110,7 +110,7 @@ def ogr_virtualogr_1():
         gdaltest.post_reason('failed')
         return 'fail'
 
-    # Unexisting layer
+    # Nonexistent layer
     if ogr_virtualogr_run_sql("CREATE VIRTUAL TABLE poly USING VirtualOGR('data/poly.shp', 0, 'foo')"):
         gdaltest.post_reason('failed')
         return 'fail'
@@ -127,8 +127,12 @@ def ogr_virtualogr_1():
         gdaltest.post_reason('failed')
         return 'fail'
 
+    if not ogr_virtualogr_run_sql("CREATE VIRTUAL TABLE poly USING VirtualOGR('data/poly.shp', 0, 'poly', 1, 1)"):
+        gdaltest.post_reason('failed')
+        return 'fail'
+
     # Too many arguments
-    if ogr_virtualogr_run_sql("CREATE VIRTUAL TABLE poly USING VirtualOGR('data/poly.shp', 0, 'poly', 1, bla)"):
+    if ogr_virtualogr_run_sql("CREATE VIRTUAL TABLE poly USING VirtualOGR('data/poly.shp', 0, 'poly', 1, 1, bla)"):
         gdaltest.post_reason('failed')
         return 'fail'
 

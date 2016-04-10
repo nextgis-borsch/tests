@@ -1,5 +1,5 @@
 /******************************************************************************
- * $Id$
+ * $Id: test_triangulation.cpp 29373 2015-06-16 21:05:49Z rouault $
  *
  * Project:  GDAL algorithms
  * Purpose:  Test Delaunay triangulation

@@ -7,11 +7,11 @@
 # Purpose:  Test basic GNMGdalNetwork class functionality.
 # Authors:  Mikhail Gusev (gusevmihs at gmail dot com)
 #           Dmitry Baryshnikov, polimax@mail.ru
-# 
+#
 ###############################################################################
 # Copyright (c) 2014, Mikhail Gusev
 # Copyright (c) 2014-2015, NextGIS <info@nextgis.com>
-# 
+#
 # Permission is hereby granted, free of charge, to any person obtaining a
 # copy of this software and associated documentation files (the "Software"),
 # to deal in the Software without restriction, including without limitation
@@ -21,7 +21,7 @@
 #
 # The above copyright notice and this permission notice shall be included
 # in all copies or substantial portions of the Software.
-# 
+#
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
 # OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
@@ -35,6 +35,7 @@ import os
 import sys
 
 sys.path.append( '../pymod' )
+
 import gdaltest
 import shutil
 
@@ -51,8 +52,18 @@ def gnm_filenetwork_create():
     except:
         pass
 
-    drv = gdal.GetDriverByName('GNMFile')
-    ds = drv.Create( 'tmp/', 0, 0, 0, gdal.GDT_Unknown, options = ['net_name=test_gnm', 'net_description=Test file based GNM', 'net_srs=EPSG:4326'] )
+    ogrtest.drv = None
+    ogrtest.have_gnm = 0
+
+    try:
+        ogrtest.drv = gdal.GetDriverByName('GNMFile')
+    except:
+        pass
+
+    if ogrtest.drv is None:
+        return 'skip'
+
+    ds = ogrtest.drv.Create( 'tmp/', 0, 0, 0, gdal.GDT_Unknown, options = ['net_name=test_gnm', 'net_description=Test file based GNM', 'net_srs=EPSG:4326'] )
     # cast to GNM
     dn = gnm.CastToNetwork(ds)
     if dn is None:
@@ -69,12 +80,16 @@ def gnm_filenetwork_create():
         return 'fail'
 
     dn = None
+    ogrtest.have_gnm = 1
     return 'success'
 
 ###############################################################################
 # Open file base network
 
 def gnm_filenetwork_open():
+
+    if not ogrtest.have_gnm:
+        return 'skip'
 
     ds = gdal.OpenEx( 'tmp/test_gnm' )
     # cast to GNM
@@ -99,6 +114,9 @@ def gnm_filenetwork_open():
 # Import layers into file base network
 
 def gnm_import():
+
+    if not ogrtest.have_gnm:
+        return 'skip'
 
     ds = gdal.OpenEx( 'tmp/test_gnm' )
 
@@ -132,6 +150,9 @@ def gnm_import():
 
 def gnm_autoconnect():
 
+    if not ogrtest.have_gnm:
+        return 'skip'
+
     ds = gdal.OpenEx( 'tmp/test_gnm' )
     dgn = gnm.CastToGenericNetwork(ds)
     if dgn is None:
@@ -151,6 +172,9 @@ def gnm_autoconnect():
 
 def gnm_graph_dijkstra():
 
+    if not ogrtest.have_gnm:
+        return 'skip'
+
     ds = gdal.OpenEx( 'tmp/test_gnm' )
     dn = gnm.CastToNetwork(ds)
     if dn is None:
@@ -169,11 +193,14 @@ def gnm_graph_dijkstra():
     dn.ReleaseResultSet(lyr)
     dn = None
     return 'success'
-
+import ogrtest
 ###############################################################################
 # KShortest Paths
 
 def gnm_graph_kshortest():
+
+    if not ogrtest.have_gnm:
+        return 'skip'
 
     ds = gdal.OpenEx( 'tmp/test_gnm' )
     dn = gnm.CastToNetwork(ds)
@@ -199,6 +226,9 @@ def gnm_graph_kshortest():
 
 def gnm_graph_connectedcomponents():
 
+    if not ogrtest.have_gnm:
+        return 'skip'
+
     ds = gdal.OpenEx( 'tmp/test_gnm' )
     dn = gnm.CastToNetwork(ds)
     if dn is None:
@@ -222,7 +252,10 @@ def gnm_graph_connectedcomponents():
 ###############################################################################
 # Network deleting
 
-def gnm_delete(): 
+def gnm_delete():
+
+    if not ogrtest.have_gnm:
+        return 'skip'
 
     gdal.GetDriverByName('GNMFile').Delete('tmp/test_gnm')
 
@@ -234,10 +267,9 @@ def gnm_delete():
         pass
 
     return 'success'
-           
-           
 
-gnmtest_list = [
+
+gdaltest_list = [
     gnm_filenetwork_create,
     gnm_filenetwork_open,
     gnm_import,
@@ -252,7 +284,7 @@ if __name__ == '__main__':
 
     gdaltest.setup_run( 'gnm_test' )
 
-    gdaltest.run_tests( gnmtest_list )
+    gdaltest.run_tests( gdaltest_list )
 
     gdaltest.summarize()
 
