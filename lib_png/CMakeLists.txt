@@ -1,8 +1,8 @@
 cmake_minimum_required (VERSION 2.8)
 project (png_test)
 
-option (BUILD_HDFEOS2_TESTING "Build HDF-EOS2 Unit Testing" ON)
-if(BUILD_HDFEOS2_TESTING)
+option (BUILD_PNG_TESTING "Build PNG Unit Testing" ON)
+if(BUILD_PNG_TESTING)
     set(WITH_PNG ON CACHE BOOL "set with png on" FORCE)
     set(WITH_PNG_EXTERNAL ON CACHE BOOL "set with png external on" FORCE)
 

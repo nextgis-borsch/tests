@@ -28,23 +28,33 @@
 cmake_minimum_required (VERSION 2.8)
 project (gdal_test)
 
-set(WITH_GDAL ON CACHE BOOL "set with gdal on" FORCE)
-set(WITH_GDAL_EXTERNAL ON CACHE BOOL "set with gdal external on" FORCE)
+option (BUILD_GDAL_TESTING "Build GDAL Unit Testing" ON)
+if(BUILD_GDAL_TESTING)
+    #TODO: to use from python we need shared build of gdal
+    
+    set(WITH_GDAL ON CACHE BOOL "set with gdal on" FORCE)
+    set(WITH_GDAL_EXTERNAL ON CACHE BOOL "set with gdal external on" FORCE)
 
-include(FindAnyProject)
-find_anyproject(GDAL REQUIRED)
+    find_anyproject(GDAL REQUIRED)
 
-#check for python
-find_package(PythonInterp REQUIRED)
-if(NOT PYTHONINTERP_FOUND)
-    message(FATAL_ERROR "Cannot find python")
+    #check for python
+    find_package(PythonInterp REQUIRED)
+    if(NOT PYTHONINTERP_FOUND)
+        message(FATAL_ERROR "Cannot find python")
+    endif()
+
+    #TODO: add to PYTHON_PATH build swig diretory (temporary)
+
+    #add tests
+    add_test(gcore ${PYTHON_EXECUTABLE} run_all.py gcore)
+    add_test(gdrivers ${PYTHON_EXECUTABLE} run_all.py gdrivers)
+    add_test(alg ${PYTHON_EXECUTABLE} run_all.py alg)
+    add_test(osr ${PYTHON_EXECUTABLE} run_all.py osr)
+    add_test(ogr ${PYTHON_EXECUTABLE} run_all.py ogr)
+    add_test(utilities ${PYTHON_EXECUTABLE} run_all.py utilities)
+    add_test(pymod ${PYTHON_EXECUTABLE} run_all.py pymod)
+    add_test(pyscripts ${PYTHON_EXECUTABLE} run_all.py pyscripts)
+    add_test(gnm ${PYTHON_EXECUTABLE} run_all.py gnm)
+    
+    #TODO: add_subdirectory(cpp)
 endif()
-
-#add tests
-add_test(gcore ${PYTHON_EXECUTABLE} gcore)
-add_test(gdrivers ${PYTHON_EXECUTABLE} gdrivers)
-add_test(alg ${PYTHON_EXECUTABLE} alg)
-add_test(osr ${PYTHON_EXECUTABLE} osr)
-add_test(ogr ${PYTHON_EXECUTABLE} ogr)
-add_test(utilities ${PYTHON_EXECUTABLE} utilities)
-add_test(pyscripts ${PYTHON_EXECUTABLE} pyscripts)
