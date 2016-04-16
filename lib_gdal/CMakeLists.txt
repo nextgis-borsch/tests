@@ -44,6 +44,7 @@ if(BUILD_GDAL_TESTING)
     endif()
 
     #TODO: add to PYTHON_PATH build swig diretory (temporary)
+    # build/bindings/python/build/lib.linux-x86_64-2.7
 
     #add tests
     add_test(gcore ${PYTHON_EXECUTABLE} run_all.py gcore)
