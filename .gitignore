@@ -12,5 +12,25 @@ __pycache__/
 #Building
 /build
 
-#Tmp
+#new
+lib_gdal/gdrivers/gdalwmscache
+#official
+*.pyc
+lib_gdal/ogr/tmp
+lib_gdal/ogr/data/delete_nas.gfs
+lib_gdal/ogr/data/replace_nas.gfs
+lib_gdal/ogr/data/test_point2.gfs
+lib_gdal/ogr/data/schema_with_geom_in_complextype.gfs
+lib_gdal/ogr/data/bylany.vfk.db
+lib_gdal/gcore/tmp
+lib_gdal/gcore/data/byte.tif.gz.properties
+lib_gdal/gdrivers/data/arg-float32.tif.aux.xml
+lib_gdal/gdrivers/data/arg-float64.tif.aux.xml
+lib_gdal/gdrivers/data/arg-int16-2.json
+lib_gdal/gdrivers/data/arg-int16.arg.aux.xml
+lib_gdal/gdrivers/data/byte.jp2.gz.properties
+lib_gdal/gdrivers/data/utm.json
+lib_gdal/gdrivers/tmp
+lib_gdal/osr/tmp
 *~
+*tmp

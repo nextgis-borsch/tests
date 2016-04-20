@@ -113,7 +113,7 @@ function(find_extproject name)
     list(APPEND find_extproject_CMAKE_ARGS -DEP_URL=${EP_URL})       
     list(APPEND find_extproject_CMAKE_ARGS -DPULL_UPDATE_PERIOD=${PULL_UPDATE_PERIOD})       
     list(APPEND find_extproject_CMAKE_ARGS -DPULL_TIMEOUT=${PULL_TIMEOUT})       
-    list(APPEND find_extproject_CMAKE_ARGS -DSUPRESS_VERBOSE_OUTPUT=${SUPRESS_VERBOSE_OUTPUT})       
+    list(APPEND find_extproject_CMAKE_ARGS -DSUPRESS_VERBOSE_OUTPUT=${SUPRESS_VERBOSE_OUTPUT})      
         
     include(ExternalProject)
     set_property(DIRECTORY PROPERTY "EP_BASE" ${EP_BASE})
@@ -128,11 +128,11 @@ function(find_extproject name)
     
     # search BUILD_SHARED_LIBS
     string (REGEX MATCHALL "(^|;)-DBUILD_SHARED_LIBS[A-Za-z0-9_]*" _matchedVars "${find_extproject_CMAKE_ARGS}")   
-    unset(_matchedVars)
+    #unset(_matchedVars)
     list(LENGTH _matchedVars _list_size)    
     if(_list_size EQUAL 0)
         list(APPEND find_extproject_CMAKE_ARGS -DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS})
-    endif()
+    endif()      
     
     # set some arguments  
     if(CMAKE_GENERATOR)        
