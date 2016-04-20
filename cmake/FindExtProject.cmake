@@ -136,19 +136,11 @@ function(find_extproject name)
     
     # search BUILD_SHARED_LIBS
     string (REGEX MATCHALL "(^|;)-DBUILD_SHARED_LIBS[A-Za-z0-9_]*" _matchedVars "${find_extproject_CMAKE_ARGS}")   
-<<<<<<< HEAD
-    #unset(_matchedVars)
-    list(LENGTH _matchedVars _list_size)    
-    if(_list_size EQUAL 0)
-        list(APPEND find_extproject_CMAKE_ARGS -DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS})
-    endif()      
-=======
     list(LENGTH _matchedVars _list_size)    
     if(_list_size EQUAL 0)
         list(APPEND find_extproject_CMAKE_ARGS -DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS})
     endif()
     unset(_matchedVars)
->>>>>>> 7861654b47dfa2c252aae384a792a8cf42ce0bc1
     
     # set some arguments  
     if(CMAKE_GENERATOR)        

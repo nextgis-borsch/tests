@@ -87,7 +87,6 @@ if(BUILD_GDAL_TESTING)
     if(NOT PYTHONINTERP_FOUND)
         message(FATAL_ERROR "Cannot find python")
     endif()
-<<<<<<< HEAD
     
     # Create separate directory into which we will put generated python libraries (because each OS will have unique
     # directory name). 
@@ -135,22 +134,4 @@ if(BUILD_GDAL_TESTING)
     
     # TODO: add_subdirectory(cpp).
     
-=======
-
-    #TODO: add to PYTHON_PATH build swig diretory (temporary)
-    # build/bindings/python/build/lib.linux-x86_64-2.7
-
-    #add tests
-    add_test(gcore ${PYTHON_EXECUTABLE} run_all.py gcore)
-    add_test(gdrivers ${PYTHON_EXECUTABLE} run_all.py gdrivers)
-    add_test(alg ${PYTHON_EXECUTABLE} run_all.py alg)
-    add_test(osr ${PYTHON_EXECUTABLE} run_all.py osr)
-    add_test(ogr ${PYTHON_EXECUTABLE} run_all.py ogr)
-    add_test(utilities ${PYTHON_EXECUTABLE} run_all.py utilities)
-    add_test(pymod ${PYTHON_EXECUTABLE} run_all.py pymod)
-    add_test(pyscripts ${PYTHON_EXECUTABLE} run_all.py pyscripts)
-    add_test(gnm ${PYTHON_EXECUTABLE} run_all.py gnm)
-    
-    #TODO: add_subdirectory(cpp)
->>>>>>> 7861654b47dfa2c252aae384a792a8cf42ce0bc1
 endif()
