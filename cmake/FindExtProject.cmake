@@ -120,7 +120,7 @@ function(find_extproject name)
     list(APPEND find_extproject_CMAKE_ARGS -DEP_URL=${EP_URL})       
     list(APPEND find_extproject_CMAKE_ARGS -DPULL_UPDATE_PERIOD=${PULL_UPDATE_PERIOD})       
     list(APPEND find_extproject_CMAKE_ARGS -DPULL_TIMEOUT=${PULL_TIMEOUT})       
-    list(APPEND find_extproject_CMAKE_ARGS -DSUPRESS_VERBOSE_OUTPUT=${SUPRESS_VERBOSE_OUTPUT})       
+    list(APPEND find_extproject_CMAKE_ARGS -DSUPRESS_VERBOSE_OUTPUT=${SUPRESS_VERBOSE_OUTPUT})      
         
     include(ExternalProject)
     set_property(DIRECTORY PROPERTY "EP_BASE" ${EP_BASE})
