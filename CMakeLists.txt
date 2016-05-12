@@ -37,4 +37,4 @@ foreach(TEST ${TESTS})
         add_subdirectory(${TEST})
     endif()
 endforeach()
-
+add_subdirectory(googletest)

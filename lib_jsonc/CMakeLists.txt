@@ -12,6 +12,15 @@ if(BUILD_JSONC_TESTING)
     if(HAVE_LOCALE_H)
         add_definitions(-DHAVE_LOCALE_H -DHAVE_SETLOCALE)
     endif()    
+    
+    # Include macros for platform checks
+    include(CheckFunctionExists)
+
+    # Check for strcasecmp (case-insensitive strcmp())
+    check_function_exists(strcasecmp HAVE_STRCASECMP)
+    if(HAVE_STRCASECMP)
+        add_definitions(-DHAVE_STRCASECMP)
+    endif()
 
     find_anyproject(JSONC REQUIRED)
 
