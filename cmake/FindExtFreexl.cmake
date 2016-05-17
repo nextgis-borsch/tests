@@ -1,10 +1,10 @@
 ################################################################################
 # Project:  external projects
 # Purpose:  CMake build scripts
-# Author:   Mikhail Gusev, gusevmihs@gmail.com
+# Author:   Alexander Lisovenko, alexander.lisovenko@gmail.com
 ################################################################################
 # Copyright (C) 2016, NextGIS <info@nextgis.com>
-# Copyright (C) 2016 Mikhail Gusev
+# Copyright (C) 2016 Alexander Lisovenko
 #
 # This script is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,12 +20,12 @@
 # along with this script.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-set(repo_name lib_sqlite)
+set(repo_name freexl)
 
 if(find_extproject_SHARED)    
-    set(repo_project sqlite3)
+    set(repo_project freexl)
 else()
-    set(repo_project sqlite3static)
+    set(repo_project freexlstatic)
 endif()
 
-set(repo_include)
+set(repo_include freexl)

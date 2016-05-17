@@ -20,12 +20,12 @@
 # along with this script.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-set(repo_name lib_sqlite)
+set(repo_name lib_pq)
 
 if(find_extproject_SHARED)    
-    set(repo_project sqlite3)
+    set(repo_project pq)
 else()
-    set(repo_project sqlite3static)
+    set(repo_project pqstatic)
 endif()
 
 set(repo_include)
