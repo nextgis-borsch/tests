@@ -31,11 +31,15 @@
 
 option (BUILD_CAD_TESTING "Build CAD Unit Testing" ON)
 if(BUILD_CAD_TESTING)
-
-    
-    set(WITH_GTest ON CACHE BOOL "Google test on")
-    set(WITH_GTest_EXTERNAL ON CACHE BOOL "Google test external on")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+    set(WITH_GTest ON CACHE BOOL "set with gtest on" FORCE)
+    set(WITH_GTest_EXTERNAL ON CACHE BOOL "set with gtest external on" FORCE)
+  
     find_anyproject(GTest REQUIRED)
+  
+    set(WITH_OpenCAD ON CACHE BOOL "set with opencad on" FORCE)
+    set(WITH_OpenCAD_EXTERNAL ON CACHE BOOL "set with opencad external on" FORCE)
+
     find_anyproject(OpenCAD REQUIRED)
     include_directories(${GTEST_INCLUDE_DIRS} ${CMAKE_SOURCE_DIR}/src
                         ${CMAKE_SOURCE_DIR}/lib)
@@ -52,14 +56,11 @@ if(BUILD_CAD_TESTING)
     file(COPY data DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
     file(COPY data/r2000 DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/data)
 
-    add_executable(io_test
-                   io_check.cpp)
-    target_link_extlibraries(io_test)
-    add_test( io_test io_test )
-
-    add_executable(geometry_test
+    add_executable(opencad_geometry_test
                    reading_geometries.cpp)
-    target_link_extlibraries(geometry_test)
-    add_test( geometry_test geometry_test )
+                
+                   
+    target_link_extlibraries(opencad_geometry_test)
+    add_test( opencad_geometry_test geometry_test )
 
 endif()

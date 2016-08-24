@@ -11,6 +11,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
 enable_testing()
 include(CTest)
 include(FindAnyProject)
+include(util)
 
 set(BUILD_SHARED_LIBS OFF) # else we need to install test libraries somethere
 if(BUILD_SHARED_LIBS)

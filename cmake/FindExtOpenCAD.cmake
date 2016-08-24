@@ -28,7 +28,7 @@ else()
     set(repo_project opencadstatic)
 endif()
 
-set(repo_include "")
+set(repo_include "opencad")
 
 if(NOT find_extproject_SHARED)
     add_definitions(-DOCAD_STATIC)
