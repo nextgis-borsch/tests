@@ -20,6 +20,7 @@
 # along with this script.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-set(repo_name lib_geotiff)
-set(repo_project geotiff)
-set(repo_include)
+set(repo_name lib_rapidjson)
+set(repo_project librapidjson)
+set(repo_include rapidjson)
+set(repo_header_only ON)

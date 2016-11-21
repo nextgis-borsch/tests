@@ -1,10 +1,10 @@
 ################################################################################
 # Project:  external projects
 # Purpose:  CMake build scripts
-# Author:   Dmitry Baryshnikov, polimax@mail.ru
+# Author:   Alexander Lisovenko, alexander.lisovenko@gmail.com
 ################################################################################
-# Copyright (C) 2015, NextGIS <info@nextgis.com>
-# Copyright (C) 2015 Dmitry Baryshnikov
+# Copyright (C) 2016, NextGIS <info@nextgis.com>
+# Copyright (C) 2016 Alexander Lisovenko
 #
 # This script is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,6 +20,6 @@
 # along with this script.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-set(repo_name lib_geotiff)
-set(repo_project geotiff)
-set(repo_include)
+set(repo_name lib_ecw)
+set(repo_project ecw)
+set(repo_intetrface ON)

@@ -20,6 +20,6 @@
 # along with this script.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-set(repo_name lib_geotiff)
-set(repo_project geotiff)
+set(repo_name lib_zip)
+set(repo_project libzip)
 set(repo_include)
